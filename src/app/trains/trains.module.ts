@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { TrainEffects } from './store/trains.effects';
 import { TrainsUpdateComponent } from './trains-update/trains-update.component';
 import { FormatterPipe } from '../pipes/formatter.pipe';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -37,7 +38,9 @@ import { FormatterPipe } from '../pipes/formatter.pipe';
     MatCardModule,
     MatIconModule,
     MatTableModule,
-    MatInputModule /*,
+    MatInputModule,
+    MatSelectModule
+     /*,
 		MatMenuModule,
 		MatSelectModule,
 		MatAutocompleteModule,

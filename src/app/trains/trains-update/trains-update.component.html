@@ -1,47 +1,76 @@
 <form [formGroup]="trainsForm" (ngSubmit)="onSubmit(trainsForm.getRawValue())">
-<h3>Szerkesztés</h3>
+  <h3>Szerkesztés</h3>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Sorozatjel</mat-label>
-      <input matInput placeholder="Sorozatjel" formControlName="trainId" />
-      <mat-hint>Adjon meg egy sorozatszámot. Pl.: Aa11A</mat-hint>
+      <input matInput placeholder="Pl.: Aa11A" formControlName="trainId" />
+      <mat-hint>Adjon meg egy sorozatszámot! Pl.: Aa11A</mat-hint>
+      <mat-error *ngIf="trainId.invalid">{{
+        getTrainIdErrorMessage()
+      }}</mat-error>
     </mat-form-field>
-    </div>
-    <div>
+  </div>
+  <div>
     <mat-form-field appearance="outline">
       <mat-label>Gyártási év</mat-label>
-      <input matInput placeholder="Gyártási év" formControlName="manufactureYear" />
-      <mat-hint>Adjon meg egy gyártási évet</mat-hint>
+      <input
+        type="number"
+        matInput
+        placeholder="Gyártási év"
+        formControlName="manufactureYear"
+      />
+      <mat-hint>Adjon meg egy gyártási évet!</mat-hint>
+      <mat-error *ngIf="manufactureYear.invalid">{{
+        getManufactureYearErrorMessage()
+      }}</mat-error>
     </mat-form-field>
-    </div>
-    <div>
+  </div>
+  <div>
     <mat-form-field appearance="outline">
       <mat-label>Pályaszám</mat-label>
-      <input matInput placeholder="Pályaszám" formControlName="trackNumber" />
-      <mat-hint>Adjon meg egy pályaszámot. Pl.: 11 11 11-11 111-1</mat-hint>
+      <input
+        matInput
+        placeholder="Pl.: 11 11 11-11 111-1"
+        formControlName="trackNumber"
+      />
+      <mat-hint>Adjon meg egy pályaszámot! Pl.: 11 11 11-11 111-1</mat-hint>
     </mat-form-field>
-    </div>
-    <div>
+    <mat-error *ngIf="trackNumber.invalid">{{
+      getTrackNumberErrorMessage()
+    }}</mat-error>
+  </div>
+  <div>
     <mat-form-field appearance="outline">
       <mat-label>Tulajdonos</mat-label>
       <input matInput placeholder="Tulajdonos" formControlName="owner" />
-      <mat-hint>Adjon meg egy tulajdonost</mat-hint>
-    </mat-form-field>
-    </div>
-    <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Telephely</mat-label>
-      <input matInput placeholder="Telephely" formControlName="site" />
-      <mat-hint>Adjon meg egy telephelyet</mat-hint>
+      <mat-hint>Adjon meg egy tulajdonost!</mat-hint>
+      <mat-error *ngIf="owner.invalid">{{
+        getOwnerErrorMessage()
+      }}</mat-error>
     </mat-form-field>
   </div>
-  <button mat-raised-button color="primary" type [disabled]="trainsForm.invalid">Frissítés</button>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Válasszon Telephelyet</mat-label>
+      <mat-select formControlName="siteId">
+        <mat-option *ngFor="let site of sites$ | async" [value]="site.siteId">
+          {{ site.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    type
+    [disabled]="trainsForm.invalid"
+  >
+    Frissítés
+  </button>
 </form>
+<p>Form Status: {{ trainsForm.status }}</p>
 <p>
-  Form Status: {{ trainsForm.status }}
-</p>
-<p>
-<a mat-button routerLink="/trains">
-  <b>Vissza</b>
-</a>
+  <a mat-button routerLink="/trains">
+    <b>Vissza</b>
+  </a>
 </p>

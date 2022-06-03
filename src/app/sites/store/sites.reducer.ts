@@ -7,11 +7,13 @@ export const sitesFeatureKey = 'sitesFeature';
 
 export interface SitesFeatureState {
   sites: Array<SiteModel>;
+  loadedSite: SiteModel;
 }
 
 // initial state for the feature
 export const initialState: SitesFeatureState = {
-  sites: []
+  sites: [],
+  loadedSite: null
 };
 
 //one reducer based on initial state and actions defined earlier

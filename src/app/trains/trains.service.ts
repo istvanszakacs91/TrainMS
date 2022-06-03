@@ -21,7 +21,12 @@ export class TrainsService {
   }
 
   createTrain(train: TrainModel): Observable<any> {
-    return this.requestService.post(`${TRAIN_URL}/`, train);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.requestService.post(`${TRAIN_URL}/`, train, httpOptions);
   }
 
   updateTrain(train: TrainModel): Observable<any> {

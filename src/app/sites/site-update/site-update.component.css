@@ -1,0 +1,22 @@
+.mat-form-field {
+  width: 50%;
+}
+
+.mat-hint {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  opacity: 0.9;
+}
+
+form {
+  background-color: white;
+  width: 60%;
+  opacity: 0.9;
+  margin-left: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}

@@ -108,7 +108,7 @@ export class TrainEffects {
           map((item: any) => {
             return trainUpdateAction({
               train: {
-                deleted: false,
+                deleted: true,
               },
             });
           }),
