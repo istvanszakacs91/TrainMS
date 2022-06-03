@@ -1,0 +1,41 @@
+<form [formGroup]="siteForm" (ngSubmit)="onSubmit(siteForm.value)">
+<h3>Új vasúti telephely felvétele</h3>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Telephely neve</mat-label>
+      <input matInput placeholder="Telephely" formControlName="name" />
+      <mat-hint>Adjon meg egy telephelynevet! Pl.: Zirc</mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Tulajdonos</mat-label>
+      <input matInput placeholder="Tulajdonos" formControlName="owner" />
+      <mat-hint>Adjon meg egy tulajdonos nevet! Pl.: MÁV</mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Telephely címe</mat-label>
+      <input matInput placeholder="Cím" formControlName="address" />
+      <mat-hint>Adjon meg egy címet!</mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Telephely kódszáma</mat-label>
+      <input matInput placeholder="Kódszám" formControlName="code" />
+      <mat-hint>Adjon meg egy telephely kódszmot! Pl.: 82006</mat-hint>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type>Mentés</button>
+</form>
+<p>
+Form Status: {{ siteForm.status }}
+</p>
+
+<p>
+  <a mat-button routerLink="/sites">
+    <b>Vissza</b>
+  </a>
+</p>

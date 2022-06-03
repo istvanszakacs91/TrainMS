@@ -1,21 +1,16 @@
-<mat-card *ngIf="site">
-<mat-card-header>
-  <div mat-card-avatar>
-    <i class="material-icons">train</i>
-  </div>
-  <mat-card-title>
-      <b>{{site.name}}</b>
-  </mat-card-title>
-  <mat-card-subtitle>{{site.owner }}</mat-card-subtitle>
-</mat-card-header>
-<mat-card-content>
-  <p>
-    {{site.address}}
-  </p>
-</mat-card-content>
-<mat-card-actions>
-  <a mat-button [routerLink]="['/trains']">
+<mat-card *ngIf="sites">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <i class="material-icons">train</i>
+    </div>
+    <mat-card-title>
+      <b>{{ sites.name }}</b>
+    </mat-card-title>
+    <mat-card-subtitle>{{ sites.owner }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <a mat-button [routerLink]="['/trains']">
       <b>Vissza</b>
     </a>
-</mat-card-actions>
+  </mat-card-actions>
 </mat-card>

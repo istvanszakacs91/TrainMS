@@ -1,8 +1,12 @@
-<mat-card
-  ><h1>Üdvözöljük a {{ name }} oldalán!</h1></mat-card
->
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <a button mat-menu-item routerLink="/trains">Trains</a>
-  <a button mat-menu-item routerLink="/sites">Sites</a>
-</mat-menu>
+<html>
+  <mat-card
+    ><h1>Üdvözöljük a {{ name }} oldalon!</h1></mat-card
+  >
+  <mat-card style="width: 100px">
+    <button mat-button [matMenuTriggerFor]="menu"><b>Menu</b></button>
+    <mat-menu #menu="matMenu">
+      <a button mat-menu-item routerLink="/trains">Trains</a>
+      <a button mat-menu-item routerLink="/sites">Sites</a>
+    </mat-menu>
+  </mat-card>
+</html>

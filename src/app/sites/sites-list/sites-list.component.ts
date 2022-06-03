@@ -4,7 +4,7 @@ import { SitesService } from '../sites.service';
 import { selectSites } from '../store/sites.selectors';
 import { Store, select } from '@ngrx/store';
 import { SiteModel } from '../store/sites.model';
-import {sitesRequested, sitesLoaded, siteDelete} from '../store/sites.actions';
+import {sitesRequestedAction, sitesLoadedAction, siteDeleteAction} from '../store/sites.actions';
 
 @Component({
   selector: 'app-sites-list',
@@ -13,7 +13,7 @@ import {sitesRequested, sitesLoaded, siteDelete} from '../store/sites.actions';
 })
 
 export class SitesListComponent implements OnInit {
-  displayedColumns: string[] = ['siteId', 'name', 'owner', 'address', 'code'];
+  displayedColumns: string[] = ['siteId', 'name', 'owner', 'address', 'code', 'actions'];
 
   constructor(private sitesService: SitesService, private store: Store) {}
 
@@ -24,15 +24,14 @@ export class SitesListComponent implements OnInit {
 
   ngOnInit() {
     //this.sitesSub = this.sitesService.getSites().subscribe((result) => (this.sites = result));
-    this.store.dispatch(sitesRequested());
+    this.store.dispatch(sitesRequestedAction());
     this.sites$.subscribe((tr) => console.log('SITES', tr));
   }
 
-  /*onDeleteSite(siteId: number): void {
-    this.sitesService.deleteSite(siteId).subscribe(res => {
-      this.store.dispatch(siteDelete({siteId}));
-    });
+  onDeleteSite(site: SiteModel) {
+    this.store.dispatch(siteDeleteAction({siteId:site.siteId}));
   }
+
   /*ngOnDestroy() {
     if (this.sitesSub) this.sitesSub.unsubscribe();
   }*/

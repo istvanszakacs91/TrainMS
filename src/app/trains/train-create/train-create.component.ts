@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { TrainModel } from '../store/trains.model';
 import { Store, select } from '@ngrx/store';
 import { trainCreateAction } from '../store/trains.actions';
 import { Observable } from 'rxjs';
 import { selectTrains } from '../store/trains.selectors';
+import { sameValuesValidator } from '../validators/same-values.validator';
 
 @Component({
   selector: 'app-train-create',
@@ -24,8 +25,8 @@ export class TrainCreateComponent implements OnInit {
 
   ngOnInit() {
     this.trainForm = this.formBuilder.group({
-      serialNumber: '',
-      manufactureYear: '',
+      trainId: '',
+      manufactureYear: '1960',
       trackNumber: '',
       owner: '',
       site: '',

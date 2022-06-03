@@ -20,37 +20,38 @@ export class TrainsUpdateComponent implements OnInit {
               private router: Router,
               private store: Store) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.paramMap.pipe(
       map(params => {
-        return this.store.dispatch(trainRequestedAction({trainId: +params.get('trainId')}))})
+        return this.store.dispatch(trainRequestedAction({trainId: params.get('trainId')}))})
     ).subscribe();
     this.store.pipe(select(selectLoadedTrain)).subscribe(
       train => {
+        console.log('TRAIN', train);
+        console.log('TRAINSFORM', this.trainsForm);
         if(train && this.trainsForm) {
-          this.trainsForm.controls.trainId.setValue(train.trainId);
-          this.trainsForm.controls.serialNumber.setValue(train.serialNumber);
-          this.trainsForm.controls.manufactureYear.setValue(train.manufactureYear);
-          this.trainsForm.controls.trackNumber.setValue(train.trackNumber);
-          this.trainsForm.controls.owner.setValue(train.owner);
-          this.trainsForm.controls.siteId.setValue(train.siteId);
-          this.trainsForm.controls.site.setValue(train.site);
+          this.trainsForm.controls['trainId'].setValue(train.trainId);
+          this.trainsForm.controls['manufactureYear'].setValue(train.manufactureYear);
+          this.trainsForm.controls['trackNumber'].setValue(train.trackNumber);
+          this.trainsForm.controls['owner'].setValue(train.owner);
+          this.trainsForm.controls['siteId'].setValue(train.siteId);
+          this.trainsForm.controls['site'].setValue(train.site);
         }
       }
     );
     this.trainsForm = this.formBuilder.group({
-      'trainId': 0,
-      'name': '',
-      'serialNumber': '',
-      'manufactureYear': 0,
-      'trackNumber': '',
-      'owner': '',
-      'siteId': 0,
+      'trainId': [''],
+      'manufactureYear': [0],
+      'trackNumber': [''],
+      'owner': [''],
+      'siteId': [0],
+      'site': [''],
       'deleted': [false]
     });
   }
 
   onSubmit(trainData: any) {
+    console.log('Traindata log:', trainData);
     this.store.dispatch(trainUpdateAction(trainData));
     this.trainsForm.reset();
     this.router.navigate(['/trains']);
