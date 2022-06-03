@@ -1,6 +1,7 @@
 import { AppState } from '../../app.module';
 import { trainsFeatureKey, TrainsFeatureState } from './trains.reducer';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { sitesFeatureKey, SitesFeatureState } from '../../sites/store/sites.reducer';
 import { TrainModel } from './trains.model';
 
 // createFeatureSelector: kiveszi az adott kulcsú elemet az Appstateből, vonatok tömbje

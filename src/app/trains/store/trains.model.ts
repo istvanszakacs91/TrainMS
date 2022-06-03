@@ -1,12 +1,11 @@
 import { Train } from '../../data/trains.data';
 
 export class TrainModel implements Train {
-  trainId: number;
-  serialNumber: string;
+  trainId: string;
   manufactureYear: number;
   trackNumber: string;
   owner: string;
   siteId: number;
-  site: string;
+  site?: string;
   deleted: boolean;
 }

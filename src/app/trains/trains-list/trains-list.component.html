@@ -5,20 +5,15 @@
   Új vasúti személykocsi felvétele
 </div>
 
-<table mat-table [dataSource]="trains$" class="mat-elevation-z8">
+<table class="datatable" mat-table [dataSource]="trains$" class="mat-elevation-z8">
   <ng-container matColumnDef="trainId">
     <th mat-header-cell *matHeaderCellDef>Azonosító</th>
     <td mat-cell *matCellDef="let element">{{ element.trainId }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="serialNumber">
-    <th mat-header-cell *matHeaderCellDef>Sorozatjel</th>
-    <td mat-cell *matCellDef="let element">{{ element.serialNumber }}</td>
-  </ng-container>
-
   <ng-container matColumnDef="trackNumber">
     <th mat-header-cell *matHeaderCellDef>Pályaszám</th>
-    <td mat-cell *matCellDef="let element">{{ element.trackNumber }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.trackNumber | trackNumberFormatter }}</td>
   </ng-container>
 
   <ng-container matColumnDef="site">
@@ -30,12 +25,9 @@
     </td>
   </ng-container>
     
-  <ng-container matColumnDef="delete">
+  <ng-container matColumnDef="actions">
   <th mat-header-cell *matHeaderCellDef></th>
   <td mat-cell *matCellDef="let element">
-    <!--<button title="Kocsi törlése" (click)="onDeleteTrain(element)" mat-raised-button color="warn">
-      <i class="material-icons">remove_circle</i>{{element}}
-    </button>-->
     <mat-icon aria-hidden="false" [routerLink]="['/trains/edit', element.trainId]" aria-label="Edit">edit</mat-icon>
     <mat-icon aria-hidden="false" (click)="onDeleteTrain(element)" aria-label="Delete">delete</mat-icon>
   </td>

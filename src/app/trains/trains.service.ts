@@ -13,32 +13,37 @@ export class TrainsService {
   constructor(private requestService: RequestService) {}
 
   getTrains(): Observable<Train[]> {
+    return this.requestService.get<Train[]>(`${TRAIN_URL}/?deleted=false`);
+  }
+
+  getTrain(trainId: string): Observable<any> {
+    return this.requestService.get(`${TRAIN_URL}/${trainId}`);
+  }
+
+  createTrain(train: TrainModel): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.requestService.get<Train[]>(`${TRAIN_URL}/?deleted=false`, httpOptions);
-  }
-
-  getTrain(trainId: number): Observable<any>{
-    return this.requestService.get(`${TRAIN_URL}/${trainId}`);
-  }
-
-  createTrain(train: TrainModel): Observable<any> {
-    return this.requestService.post(`${TRAIN_URL}/`, train);
+    return this.requestService.post(`${TRAIN_URL}/`, train, httpOptions);
   }
 
   updateTrain(train: TrainModel): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
     return this.requestService.put(`${TRAIN_URL}/`, train);
   }
 
-  deleteTrain(train: TrainModel): Observable<any> {
-    return this.getTrains().pipe(
-      exhaustMap(res => {
-        train = Object.assign({}, train, {deleted: true});
-        return this.updateTrain(train);
-      })
-    );
+  deleteTrain(trainId: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.requestService.delete(`${TRAIN_URL}/${trainId}`, httpOptions);
   }
 }

@@ -9,8 +9,8 @@ export enum TrainActionTypes {
   trainsLoaded = '[Trains] Trains Loaded',
   trainCreate = '[Trains] Train Create',
   trainCreated = '[Trains] Train Created',
-  trainUpdate ='[Trains] Train Update',
-  trainUpdated ='[Trains] Train Updated',
+  trainUpdate = '[Trains] Train Update',
+  trainUpdated = '[Trains] Train Updated',
   trainDelete = '[Trains] Train Delete',
   trainDeleted = '[Trains] Train Deleted',
 }
@@ -21,7 +21,7 @@ export const trainsRequestedAction = createAction(
 
 export const trainRequestedAction = createAction(
   TrainActionTypes.trainRequested,
-  props<{trainId: number}>()
+  props<{ trainId: string }>()
 );
 
 export const trainLoadedAction = createAction(
@@ -46,19 +46,19 @@ export const trainCreatedAction = createAction(
 
 export const trainUpdateAction = createAction(
   TrainActionTypes.trainUpdate,
-  props<{train: TrainModel}>()
+  props<{ train: TrainModel }>()
 );
 export const trainUpdatedAction = createAction(
   TrainActionTypes.trainUpdated,
-  props<{train: TrainModel}>()
+  props<{ train: TrainModel }>()
 );
 
 export const trainDeleteAction = createAction(
   TrainActionTypes.trainDelete,
-  props<{ train: TrainModel }>()
+  props<{ trainId: string }>()
 );
 
 export const trainDeletedAction = createAction(
   TrainActionTypes.trainDeleted,
-  props<{ train: TrainModel }>()
+  props<{ trainId: string }>()
 );

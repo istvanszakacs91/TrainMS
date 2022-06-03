@@ -4,7 +4,8 @@ import { AuthGuard } from '../auth/auth.guard';
 import { SiteDetailsComponent } from './site-details/site-details.component';
 import { SitesListComponent } from './sites-list/sites-list.component';
 import { SitesComponent } from './sites/sites.component';
-
+import { SiteCreateComponent } from './site-create/site-create.component';
+import { SiteUpdateComponent } from './site-update/site-update.component';
 
 const routes: Routes = [
   {
@@ -23,11 +24,15 @@ const routes: Routes = [
           {
             path: 'details/:siteId',
             component: SiteDetailsComponent,
-          }/*,
+          },
+          {
+            path: 'edit/:siteId',
+            component: SiteUpdateComponent,
+          },
           {
             path: 'create',
             component: SiteCreateComponent,
-          },*/
+          },
         ],
       },
     ],

@@ -4,7 +4,17 @@ import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TrainsService } from '../trains.service';
-import { TrainActionTypes, trainsRequestedAction, trainLoadedAction, trainsLoadedAction, trainCreateAction, trainCreatedAction, trainDeleteAction } from './trains.actions';
+import {
+  TrainActionTypes,
+  trainRequestedAction,
+  trainsRequestedAction,
+  trainLoadedAction,
+  trainsLoadedAction,
+  trainCreateAction,
+  trainCreatedAction,
+  trainUpdateAction,
+  trainDeleteAction,
+} from './trains.actions';
 import { selectNextTrainId } from './trains.selectors';
 import { EMPTY } from 'rxjs';
 
@@ -16,11 +26,10 @@ export class TrainEffects {
     private store: Store
   ) {}
 
-
   loadTrains$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TrainActionTypes.trainsRequested),
-      mergeMap((action) => {
+      mergeMap(() => {
         return this.trainsService.getTrains().pipe(
           map((trains) => trainsLoadedAction({ trains })),
           catchError(() => EMPTY)
@@ -28,14 +37,16 @@ export class TrainEffects {
       })
     )
   );
-  
-  loadTrain$ = createEffect(() => this.actions$.pipe(
-    ofType(TrainActionTypes.trainRequested),
-    switchMap((action) => this.trainsService.getTrain(action.trainId)
-      .pipe(
-        map(train => (trainLoadedAction({train}))),
-        catchError(() => EMPTY)
-      ))
+
+  loadTrain$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TrainActionTypes.trainRequested),
+      switchMap((action) =>
+        this.trainsService.getTrain(action.trainId).pipe(
+          map((train) => trainLoadedAction({ train })),
+          catchError(() => EMPTY)
+        )
+      )
     )
   );
 
@@ -47,15 +58,15 @@ export class TrainEffects {
         console.log(action, id);
         return this.trainsService.createTrain(action).pipe(
           map((item: any) => {
-            return trainCreatedAction({train: {
-                trainId,
-                serialNumber: action.serialNumber,
+            return trainCreatedAction({
+              train: {
+                trainId: action.trainId,
                 manufactureYear: action.manufactureYear,
                 trackNumber: action.trackNumber,
                 owner: action.owner,
-                site: action.site,
                 siteId: action.siteId,
-                deleted: false
+                site: '',
+                deleted: false,
               },
             });
           }),
@@ -65,18 +76,48 @@ export class TrainEffects {
     )
   );
 
-  deleteTrain$ = createEffect(() => this.actions$.pipe(
-    ofType(TrainActionTypes.trainDelete),
-    switchMap((action) => {
-      return this.trainsService.deleteTrain(action.train).pipe(
-        map((item: any) => {
-            return trainsRequestedAction();
-        }),
-        catchError((err) => {
-          console.error(err);
-          return EMPTY;
-        })
-      )
-    })
-  ))
+  updateTrain$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TrainActionTypes.trainUpdate),
+      switchMap((action) => {
+        console.log('ACTION', action);
+        return this.trainsService.updateTrain(action).pipe(
+          map((item: any) => {
+            return trainUpdateAction({
+              train: {
+                trainId: action['trainId'],
+                manufactureYear: action['manufactureYear'],
+                trackNumber: action['trackNumber'],
+                owner: action['owner'],
+                siteId: action['siteId'],
+                deleted: false,
+              },
+            });
+          }),
+          catchError(() => EMPTY)
+        );
+      })
+    )
+  );
+
+  deleteTrain$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TrainActionTypes.trainDelete),
+      switchMap((action: any) => {
+        return this.trainsService.deleteTrain(action.trainId).pipe(
+          map((item: any) => {
+            return trainUpdateAction({
+              train: {
+                deleted: true,
+              },
+            });
+          }),
+          catchError((err) => {
+            console.error('ERROR', err);
+            return EMPTY;
+          })
+        );
+      })
+    )
+  );
 }

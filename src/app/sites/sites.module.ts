@@ -18,6 +18,9 @@ import * as fromSites from './store/sites.reducer';
 import { SitesRoutingModule } from './sites-routing.module';
 import { SitesComponent } from './sites/sites.component';
 import { SiteDetailsComponent } from './site-details/site-details.component';
+import { SiteCreateComponent } from './site-create/site-create.component';
+import { SiteUpdateComponent } from './site-update/site-update.component';
+import { TrainsModule } from '../trains/trains.module';
 
 @NgModule({
   imports: [
@@ -35,7 +38,8 @@ import { SiteDetailsComponent } from './site-details/site-details.component';
     MatCardModule,
     MatIconModule,
     MatTableModule,
-    MatInputModule /*,
+    MatInputModule,
+    TrainsModule /*,
 		MatMenuModule,
 		MatSelectModule,
 		MatAutocompleteModule,
@@ -58,6 +62,8 @@ import { SiteDetailsComponent } from './site-details/site-details.component';
     SitesComponent,
     SitesListComponent,
     SiteDetailsComponent,
+    SiteCreateComponent,
+    SiteUpdateComponent
   ],
   providers: [SitesService],
 })

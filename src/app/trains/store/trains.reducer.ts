@@ -17,13 +17,16 @@ export const initialState: TrainsFeatureState = {
 };
 
 //one reducer based on initial state and actions defined earlier
-//on: melyik eseményre hogyan reagál: megkapja az aktuális állapotot, utána veszővel felsorolva kapja a propertyket: vasúti koxsik listáját kapja és ezzel tér vissza.
+//on: melyik eseményre hogyan reagál: megkapja az aktuális állapotot, utána veszővel felsorolva kapja a propertyket: vasúti kocsik listáját kapja és ezzel tér vissza.
 export const trainsReducer = createReducer(
   initialState,
+  on(trainLoadedAction, (state, {train}) => ({...state, loadedTrain: train})),
   on(trainsLoadedAction, (state, {trains}) => ({...state, trains})),
   on(trainCreateAction, (state) => ({...state})),
-  on(trainLoadedAction, (state, {train}) => ({
-    ...state, 
-    loadedTrain: train
+  on(trainDeleteAction, (state, {trainId}) => ({...state, loading: true, trains: state.trains.filter(tr => tr.trainId !== trainId)
   }))
+    //return {
+      //trains: state.trains.filter(tr => tr !== undefined)
+    //}
+  //})
 );

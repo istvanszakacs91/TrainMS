@@ -15,6 +15,13 @@ export const selectSites = createSelector(
   }
 )
 
+export const selectLoadedSite = createSelector(
+  selectFeature,
+  (state: SitesFeatureState) => {
+    return state.loadedSite;
+  }
+)
+
 export const selectNextSiteId = createSelector(
   selectSites,
   (sites: SiteModel[]) => {

@@ -7,6 +7,8 @@ import { TrainModel } from '../../trains/store/trains.model';
 import { SitesService } from '../sites.service';
 import { Store, select } from '@ngrx/store';
 import { selectTrains } from '../../trains/store/trains.selectors';
+import { selectSites } from '../store/sites.selectors';
+import { SiteModel } from '../store/sites.model';
 
 @Component({
   selector: 'app-site-details',
@@ -21,15 +23,15 @@ export class SiteDetailsComponent implements OnInit {
               private siteService: SitesService,
               private store: Store) {}
 
-  trains$: Observable<TrainModel[]> = this.store.pipe(select(selectTrains));
-
   ngOnInit() {
+    const siteId = this.route.snapshot.paramMap.get('siteId');
+    console.log("Siteid", siteId);
     this.route.paramMap.pipe(
       switchMap(params => this.siteService.getSite(+params.get('siteId')))
     )
     .subscribe(site => {
       this.site = site;
+      console.log("SITE", this.site);
     });
-    this.store.dispatch(trainsRequestedAction());
   }
 }

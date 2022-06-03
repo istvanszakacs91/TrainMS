@@ -19,6 +19,8 @@ import { TrainCreateComponent } from './train-create/train-create.component';
 import { CommonModule } from '@angular/common';
 import { TrainEffects } from './store/trains.effects';
 import { TrainsUpdateComponent } from './trains-update/trains-update.component';
+import { FormatterPipe } from '../pipes/formatter.pipe';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -36,7 +38,9 @@ import { TrainsUpdateComponent } from './trains-update/trains-update.component';
     MatCardModule,
     MatIconModule,
     MatTableModule,
-    MatInputModule /*,
+    MatInputModule,
+    MatSelectModule
+     /*,
 		MatMenuModule,
 		MatSelectModule,
 		MatAutocompleteModule,
@@ -60,6 +64,7 @@ import { TrainsUpdateComponent } from './trains-update/trains-update.component';
     TrainsListComponent,
     TrainCreateComponent,
     TrainsUpdateComponent,
+    FormatterPipe,
   ],
   providers: [TrainsService],
 })
